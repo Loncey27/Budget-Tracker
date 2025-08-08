@@ -26,6 +26,10 @@
         <form id="form" class="form">
             <h3><b>Add Transactions</b></h3>
             <div>
+                <label for="transaction-date">Date</label>
+                <input id="transaction-date" type="date" required>
+            </div>
+            <div>
                 <label for="add-transaction-type">Transaction Type</label>
                 <select name="add-transaction-type" id="add-transaction-type">
                     <option  value="income">Income</option>
@@ -33,20 +37,16 @@
                 </select>
             </div>
             <div>
-                <label for="description">Description</label>
-                <input id="description" style="width: 40vh; padding: 4px;" type="text">
+                <label for="transaction-description">Description</label>
+                <input id="transaction-description" style="width: 40vh; padding: 4px;" type="text">
             </div>
             <div>
-                <label for="amount">Amount (Ksh)</label>
-                <input type="number" min="0" step="0.01"> 
-            </div>
-            <div>
-                <label for="date">Date</label>
-                <input id="date" type="date" required>
+                <label for="transaction-amount">Amount (Ksh)</label>
+                <input id="transaction-amount" type="number" min="0" step="0.01"> 
             </div>
             <button id="add-transaction-btn" class="add-transaction-btn" type="submit">Add Transaction</button>
         </form>
-        <div class="transactions-list">
+        <div id="transactions-list" class="transactions-list">
             <div id="transaction-list-header">
                 <h3>Transactions</h3> 
                 <label for="transaction-type">Filter List:                 
