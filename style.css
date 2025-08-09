@@ -48,7 +48,7 @@
 
 .transactions-history {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     height: fit-content;
 }

@@ -25,6 +25,7 @@ form.addEventListener('submit', function captureEntries(event){
     transaction.push(newTransaction)
     //add new object(transaction object to the transaction arr)
     displayTransaction(transaction)
+    dashSummary()
 });
 //_______________________________________displayFuction________________________//
 function displayTransaction(transaction){
@@ -45,8 +46,23 @@ function displayTransaction(transaction){
     });
 };
 //calculating balance, expenses, and income
-// transactionSums = () => {
-//     const 
-// }
+const dashIncome = document.querySelector('.income-dash p');
+const dashExpenses = document.querySelector('.expense-dash p');
+const dashBalance = document.querySelector('.balance-dash p');
 
+function dashSummary(){
+    let totalIncome = 0;
+    let totalExpenses = 0;
 
+    transaction.forEach(transaction => {
+        if (transaction.type ==='income') {
+            totalIncome += transaction.amount;
+        } else {
+            totalExpenses += transaction.amount;
+        };
+    });
+    const balance = totalIncome - totalExpenses ;
+    dashIncome.innerText = `Ksh ${totalIncome}`;
+    dashExpenses.innerText = `Ksh ${totalExpenses}`;
+    dashBalance.innerText = `Ksh ${balance}`;
+};
