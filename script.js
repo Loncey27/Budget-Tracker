@@ -1,5 +1,5 @@
 
-const transactions = [];
+const transaction = [];
 const form = document.getElementById('form');
 form.addEventListener('submit', function captureEntries(event){
   //prevent page reloading  
@@ -14,17 +14,39 @@ form.addEventListener('submit', function captureEntries(event){
     console.log(transactionDescription)
     console.log(transactionAmount)*/
 
+    //creating an empy transactions array to store captured input
     const newTransaction = {
+        id: Date.now(),
         date: transactionDate,
         type: transactionType,
         description: transactionDescription,
         amount:  Number(transactionAmount)
     };
+    transaction.push(newTransaction)
+    //add new object(transaction object to the transaction arr)
+    displayTransaction(transaction)
 });
-
-displayTransactions = () => {
-    const transactionsList = document.getElementById('transactions-list');
-
-}
+//_______________________________________displayFuction________________________//
+function displayTransaction(transaction){
+    const ul = document.getElementById('list');
+    ul.innerHTML = '';
+    
+    transaction.forEach((transaction) => {
+        const li = document.createElement('li');
+        const editbutton = document.createElement('button');
+        editbutton.innerText = 'edit';
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerText = 'delete';
+        li.innerText = `${transaction.date} - ${transaction.type} - ${transaction.description} - Ksh.${transaction.amount}`;
+        ul.appendChild(li);
+        li.appendChild(editbutton);
+        li.appendChild(deleteBtn);
+        // console.log(li);
+    });
+};
+//calculating balance, expenses, and income
+// transactionSums = () => {
+//     const 
+// }
 
 
