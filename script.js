@@ -1,20 +1,13 @@
 const transaction = [];
 const form = document.getElementById("form");
 form.addEventListener("submit", function captureEntries(event) {
-  //prevent page reloading
-  event.preventDefault();
-
+  event.preventDefault(); //prevent page reloading
   const transactionDate = document.getElementById("transaction-date").value;
   const transactionType = document.getElementById("add-transaction-type").value;
   const transactionDescription = document.getElementById(
     "transaction-description"
   ).value;
   const transactionAmount = document.getElementById("transaction-amount").value;
-  /*console.log(transactionDate)
-    console.log(transactionType)
-    console.log(transactionDescription)
-    console.log(transactionAmount)*/
-
   //creating an empy transactions array to store captured input
   const newTransaction = {
     id: Date.now(),
@@ -23,28 +16,27 @@ form.addEventListener("submit", function captureEntries(event) {
     description: transactionDescription,
     amount: Number(transactionAmount),
   };
-  transaction.push(newTransaction);
-  //add new object(transaction object to the transaction arr)
+  transaction.push(newTransaction); //add new object(transaction object to the transaction arr)
   displayTransaction(transaction);
-  dashSummary();
+  dashSummary(transaction);
+  form.reset();
 });
-//_______________________________________displayFuction________________________//
-function displayTransaction(transaction) {
+//_______________________________________displayFuction__________________________________________________
+function displayTransaction(transactionsToDisplay) {
   const ul = document.getElementById("list");
   ul.innerHTML = "";
-
-  transaction.forEach((transaction) => {
+  transactionsToDisplay.forEach((singleTransaction, index) => {
     const li = document.createElement("li");
     const deleteBtn = document.createElement("button");
     deleteBtn.innerText = "delete";
-    li.innerText = `${transaction.date} - ${transaction.type} - ${transaction.description} - Ksh.${transaction.amount}`;
+    li.innerText = `${singleTransaction.date} - ${singleTransaction.type} - ${singleTransaction.description} - Ksh.${singleTransaction.amount}`;
     ul.appendChild(li);
     li.appendChild(deleteBtn);
-    // console.log(li);
-
     //removing parent
-    deleteBtn.addEventListener('click', function(event) {
-    event.target.parentElement.remove();
+    deleteBtn.addEventListener("click", function (event) {
+      transaction.splice(index, 1);
+      displayTransaction(transaction);
+      dashSummary(transaction);
     });
   });
 }
@@ -53,11 +45,11 @@ const dashIncome = document.querySelector(".income-dash p");
 const dashExpenses = document.querySelector(".expense-dash p");
 const dashBalance = document.querySelector(".balance-dash p");
 
-function dashSummary() {
+function dashSummary(transactionToAdd) {
   let totalIncome = 0;
   let totalExpenses = 0;
 
-  transaction.forEach((transaction) => {
+  transactionToAdd.forEach((transaction) => {
     if (transaction.type === "income") {
       totalIncome += transaction.amount;
     } else {
@@ -69,4 +61,24 @@ function dashSummary() {
   dashExpenses.innerText = `Ksh ${totalExpenses}`;
   dashBalance.innerText = `Ksh ${balance}`;
 }
-//delete bu
+// transaction filter
+const transactionType = document.getElementById("transaction-type");
+function filterTransactions() {
+  const selectedFilter = transactionType.value;
+  if (selectedFilter === "all") {
+    return transaction;
+  } else if (selectedFilter === "income") {
+    return transaction.filter(function isIncome(value) {
+      return value.type === "income";
+    });
+  } else if (selectedFilter === "expense") {
+    return transaction.filter(function isExpense(value) {
+      return value.type === "expense";
+    });
+  }
+}
+transactionType.addEventListener("change", function () {
+  const filteredList = filterTransactions();
+  displayTransaction(filteredList);
+  dashSummary(filteredList);
+});

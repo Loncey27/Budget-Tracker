@@ -31,18 +31,18 @@
             </div>
             <div>
                 <label for="add-transaction-type">Transaction Type</label>
-                <select name="add-transaction-type" id="add-transaction-type">
+                <select name="add-transaction-type" id="add-transaction-type" required>
                     <option  value="income">Income</option>
-                    <option value="expense">Expenses</option>
+                    <option value="expense">Expense</option>
                 </select>
             </div>
             <div>
                 <label for="transaction-description">Description</label>
-                <input id="transaction-description" style="width: 40vh; padding: 4px;" type="text">
+                <input id="transaction-description" style="width: 40vh; padding: 4px;" type="text" required>
             </div>
             <div>
                 <label for="transaction-amount">Amount (Ksh)</label>
-                <input id="transaction-amount" type="number" min="0" step="0.01"> 
+                <input id="transaction-amount" type="number" min="0" step="0.01" required> 
             </div>
             <button id="add-transaction-btn" class="add-transaction-btn" type="submit">Add Transaction</button>
         </form>
@@ -50,7 +50,7 @@
             <div id="transaction-list-header">
                 <h3>Transactions</h3> 
                 <label for="transaction-type">Filter List:                 
-                    <select id="transaction-type" name="transaction-type">
+                    <select id="transaction-type" name="transaction-type" required>
                         <option value="all">All</option>
                         <option value="income">Income</option>
                         <option value="expense">Expenses</option>
